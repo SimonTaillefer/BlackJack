@@ -1,37 +1,48 @@
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Croupier {
+public class Croupier extends Joueur {
+
 	
-	public Croupier() {
-		super();
+
+	public Croupier(String nom) {
+		super(nom);
 	}
 
-	public void distribuerCarte(Joueur joueur[], String nomJoueur, int nbJoueurs, JeuCarte jeuCarte){
+	public void distribuerUneCarte(Joueur joueur, JeuCarte jeuCarte){
 		int randomNum = ThreadLocalRandom.current().nextInt(1, 13 + 1);
 		int randomType = ThreadLocalRandom.current().nextInt(1, 4 + 1);
 		System.out.println("RandomNum" + randomNum);
 		System.out.println("RandomType" + randomType);
 		String carteNum = (Integer.toString(randomType) + Integer.toString(randomNum));
-		jeuCarte.setProprietaireCarte(joueur[trouverIDJoueur(joueur, nomJoueur, nbJoueurs)].nom, Integer.parseInt(carteNum));
+		//if ((joueur.getClass().getName()) == "Client"){
+			jeuCarte.setProprietaireCarte(joueur.nom, Integer.parseInt(carteNum));
+		/*}
+		else if ((joueur.getClass().getName()) == "Croupier") {
+			jeuCarte.setProprietaireCarte(joueur.nom, Integer.parseInt(carteNum));
+		}*/
+		System.out.println("ProprietaireCarte:" + jeuCarte.getProprietaireCarte(jeuCarte.correspondCarte(carteNum))); //Vérifie le proprietaire de la carte
+		
 	}
 	
-	public void compterPointsJoueurs(Joueur joueur[], int nbJoueurs, JeuCarte jeuCarte){
+	public void compterPointsJoueurs(Client client[], int nbJoueurs, JeuCarte jeuCarte){
 		for (int j=1; j<52; j++){
 			String nomJoueur = jeuCarte.getProprietaireCarte(j);
-			int idJoueur = trouverIDJoueur(joueur, nomJoueur, nbJoueurs);
-			joueur[idJoueur].points = joueur[idJoueur].points + jeuCarte.getPointsCarte(j);
+			int idJoueur = trouverIDJoueur(client, nomJoueur, nbJoueurs);
+			client[idJoueur].points = client[idJoueur].points + jeuCarte.getPointsCarte(j);
 			//Points du joeurs = Points du joueur qu'il a déjà + Points de la carte
 		}	
 	}
 	
-	public int trouverIDJoueur(Joueur joueur[], String nomJoueur, int nbJoueurs){ //Cherche l'identifiant du joueur à partir de son nom
+	public int trouverIDJoueur(Client client[], String nomJoueur, int nbJoueurs){ //Cherche l'identifiant du joueur à partir de son nom
 		for (int i=0; i<nbJoueurs; i++){
-			if (joueur[i].nom == nomJoueur){
+			if (client[i].nom == nomJoueur){
 				return i;
 			}
 		}
 		return -1;
 	}
+	
+
 	
 
 }

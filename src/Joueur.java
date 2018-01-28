@@ -1,11 +1,26 @@
-
 public class Joueur {
 	
 	String nom;
-	int points=0;
+
+	int hit(){
+		return 1;
+	}
 	
-	void prendreCarte(int numeroCarte, int typeCarte, JeuCarte jeuCarte){
-		//jeuCarte 
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public Joueur(String nom) {
+		super();
+		this.nom = nom;
+	}
+
+	int stand(){
+		return 2;
 	}
 
 }

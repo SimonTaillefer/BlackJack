@@ -9,7 +9,14 @@ public class Mise {
 	}
 	
 	void miser(int somme){
-		mise = mise + somme;
+		 setMise(getMise() + somme);
 	}
 
+	public int getMise() {
+		return mise;
+	}
+
+	public void setMise(int mise) {
+		this.mise = mise;
+	}
 }

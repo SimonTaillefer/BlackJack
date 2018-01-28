@@ -16,4 +16,12 @@ public class Compte {
 		this.somme = this.somme - somme;
 	}
 
+	public int getSomme() {
+		return somme;
+	}
+
+	public void setSomme(int somme) {
+		this.somme = somme;
+	}
+
 }
