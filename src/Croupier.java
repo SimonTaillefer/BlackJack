@@ -24,14 +24,7 @@ public class Croupier extends Joueur {
 		
 	}
 	
-	public void compterPointsJoueurs(Client client[], int nbJoueurs, JeuCarte jeuCarte){
-		for (int j=1; j<52; j++){
-			String nomJoueur = jeuCarte.getProprietaireCarte(j);
-			int idJoueur = trouverIDJoueur(client, nomJoueur, nbJoueurs);
-			client[idJoueur].points = client[idJoueur].points + jeuCarte.getPointsCarte(j);
-			//Points du joeurs = Points du joueur qu'il a déjà + Points de la carte
-		}	
-	}
+	
 	
 	public int trouverIDJoueur(Client client[], String nomJoueur, int nbJoueurs){ //Cherche l'identifiant du joueur à partir de son nom
 		for (int i=0; i<nbJoueurs; i++){
