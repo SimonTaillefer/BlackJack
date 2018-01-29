@@ -1,4 +1,4 @@
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Scanner;
 
 public class Croupier extends Joueur {
 
@@ -9,21 +9,8 @@ public class Croupier extends Joueur {
 	}
 
 	public void distribuerUneCarte(Joueur joueur, JeuCarte jeuCarte){
-		int randomNum = ThreadLocalRandom.current().nextInt(1, 13 + 1);
-		int randomType = ThreadLocalRandom.current().nextInt(1, 4 + 1);
-		System.out.println("RandomNum" + randomNum);
-		System.out.println("RandomType" + randomType);
-		String carteNum = (Integer.toString(randomType) + Integer.toString(randomNum));
-		//if ((joueur.getClass().getName()) == "Client"){
-			jeuCarte.setProprietaireCarte(joueur.nom, Integer.parseInt(carteNum));
-		/*}
-		else if ((joueur.getClass().getName()) == "Croupier") {
-			jeuCarte.setProprietaireCarte(joueur.nom, Integer.parseInt(carteNum));
-		}*/
-		System.out.println("ProprietaireCarte:" + jeuCarte.getProprietaireCarte(jeuCarte.correspondCarte(carteNum))); //Vérifie le proprietaire de la carte
-		
+		jeuCarte.distribuerUneCarte();
 	}
-	
 	
 	
 	public int trouverIDJoueur(Client client[], String nomJoueur, int nbJoueurs){ //Cherche l'identifiant du joueur à partir de son nom
@@ -33,6 +20,47 @@ public class Croupier extends Joueur {
 			}
 		}
 		return -1;
+	}
+	
+	
+	public void gererJeu(){
+		Scanner sc = new Scanner(System.in);
+		
+		boolean finPartie = false;
+		JeuCarte jeuCarte = new JeuCarte();
+		
+		
+		System.out.println("Bienvenue au BlackJacques");
+		
+		System.out.println("Quel est votre nom? ");
+		String nomJoueur = sc.nextLine();
+		Client client1 = new Client(nomJoueur, 1000);
+		System.out.println("Bienvenue " + client1.getNom());
+		System.out.println(client1.getNom() + ", votre butin est de " + client1.compte.somme + "€");
+		
+		System.out.println("Quelle est votre mise?");
+		client1.miser( Integer.parseInt(sc.nextLine()) );
+		System.out.println("Vous avez misé " + client1.getMise().mise + "€.");
+		System.out.println("Vous avez " + client1.getCompte().somme + "€ sur votre compte.");
+		
+		int i=0;
+		while (finPartie != true){
+			System.out.println("Cycle " + i++);
+			
+			Carte carteTiree = jeuCarte.distribuerUneCarte();
+			System.out.println("Carte tiree numero:" + carteTiree.numero);
+			System.out.println("Carte tiree type:" + carteTiree.type);
+			System.out.println("Carte tiree valeur:" + carteTiree.valeur);
+			client1.mainJoueur.ajouterCarte(carteTiree);
+			
+			jeuCarte.distribuerUneCarte();
+			client1.mainJoueur.ajouterCarte(carteTiree);
+			
+			
+		}
+
+		
+		
 	}
 	
 

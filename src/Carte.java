@@ -3,20 +3,21 @@ public class Carte {
 
 	public int numero;
 	public int type;
-	String propritaire = null;
-	
-	public Carte(int numero, int type) {
+	int valeur;
+
+	public Carte(int numero, int type, int valeur) {
 		super();
 		this.numero = numero;
 		this.type = type;
+		this.valeur = valeur;
 	}
 
-	public String getPropritaire() {
-		return propritaire;
+	public int getValeur() {
+		return valeur;
 	}
 
-	public void setProprietaire(String propritaire) {
-		this.propritaire = propritaire;
+	public void setValeur(int valeur) {
+		this.valeur = valeur;
 	}
 
 	public int getNumero() {
@@ -26,7 +27,6 @@ public class Carte {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-
 
 	
 }

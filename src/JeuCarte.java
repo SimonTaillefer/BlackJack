@@ -1,20 +1,54 @@
+import java.util.Random;
+
 public class JeuCarte {
 
-	public Carte jeuCartes[] = new Carte[53];
+	private static final int NB_CARTES = 52;
+	private static final Random rand = new Random();
+	int carteADistribuer;
+	public Carte jeuCartes[];
+			
 	// Les cartes sont numérotées de 1 à 52 en mémoire, mais identifiées par la concaténation de son type et de son numero
 	// Exemple: dame de coeur : type = 1 dame = 11 identifiant=111
+	
+    public JeuCarte(){
+    	jeuCartes = new Carte[NB_CARTES+1];
+    	this.carteADistribuer = 0;
 
-	public JeuCarte() {		// Génération du jeu de 52 cartes
-		super();
-		String i;
-		for (int numTypeCarte=1; numTypeCarte<5; numTypeCarte++){	//Génération du type: coeur carreau, trèfle ou pique
-			System.out.print(numTypeCarte);
-			for (int numCarte=1; numCarte<14; numCarte++){			//Génération des cartes de l'as(1) au roi(13) 
-				i = (Integer.toString(numTypeCarte) + Integer.toString(numCarte));
-				System.out.println("Carte numero i = "+ i + " corresond à " + correspondCarte(i));
-				jeuCartes[correspondCarte(i)] = new Carte(numCarte, numTypeCarte);
-			}
-		}
+        int k=0;
+        for(int numTypeCarte=0; numTypeCarte<4;numTypeCarte++ ) {	//Boucle du type: coeur carreau, trèfle ou pique
+            for(int numCarte=0; numCarte<13; numCarte++){			//Boucle pour les cartes de l'as(1) au roi(13) 
+                if ((numCarte>1) && (numCarte<11)){					//Génération des cartes à nombres sauf as
+					jeuCartes[k] = new Carte(numCarte, numTypeCarte, numCarte);
+				}
+				else if (numCarte>10) {								//Génération des cartes figure et as
+					jeuCartes[k] = new Carte(numCarte, numTypeCarte, 10);
+				}
+            }
+        }
+    }
+	
+	
+	
+    public void melanger(){
+        for(int i=0; i<jeuCartes.length; i++){
+            int random = rand.nextInt(NB_CARTES);
+            Carte t = jeuCartes[i];
+            jeuCartes[i] = jeuCartes[random];
+            jeuCartes[random]=t;
+        }
+    }
+
+	public Carte distribuerUneCarte(){
+
+		if(carteADistribuer<jeuCartes.length){
+			Carte j = jeuCartes[carteADistribuer];
+			carteADistribuer++;
+	        return j;
+	        
+	    }
+	    else{
+	        return null;
+	    }
 	}
 	
 	int correspondCarte(String numCarte){ //Fait la correspondance entre le numéro concaténé et le numero memoire de la carte
@@ -25,18 +59,5 @@ public class JeuCarte {
 			return Character.getNumericValue(numCarte.charAt(1)) + (Character.getNumericValue(numCarte.charAt(0))-1)*13;
 		}
 	}
-	
-	void setProprietaireCarte(String proprietaire, int numeroCarte){
-		jeuCartes[correspondCarte(Integer.toString(numeroCarte))].propritaire=proprietaire;
-	}
-	
-	String getProprietaireCarte(int numeroCarte){
-		return jeuCartes[numeroCarte].getPropritaire();
-	}
-	
-	int getPointsCarte(int numeroCarte){
-		return jeuCartes[numeroCarte].getNumero();
-	}
-	
 
 }
