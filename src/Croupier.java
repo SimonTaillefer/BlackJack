@@ -27,7 +27,7 @@ public class Croupier extends Joueur {
 		Scanner sc = new Scanner(System.in);
 		
 		boolean finPartie = false;
-		JeuCarte jeuCarte = new JeuCarte();
+		
 		
 		
 		System.out.println("Bienvenue au BlackJacques");
@@ -36,6 +36,11 @@ public class Croupier extends Joueur {
 		String nomJoueur = sc.nextLine();
 		Client client1 = new Client(nomJoueur, 1000);
 		System.out.println("Bienvenue " + client1.getNom());
+		
+		
+		JeuCarte jeuCarte = new JeuCarte();
+		jeuCarte.melanger();
+		
 		System.out.println(client1.getNom() + ", votre butin est de " + client1.compte.somme + "€");
 		
 		System.out.println("Quelle est votre mise?");
@@ -53,9 +58,7 @@ public class Croupier extends Joueur {
 			System.out.println("Carte tiree valeur:" + carteTiree.valeur);
 			client1.mainJoueur.ajouterCarte(carteTiree);
 			
-			jeuCarte.distribuerUneCarte();
-			client1.mainJoueur.ajouterCarte(carteTiree);
-			
+			sc.nextLine();
 			
 		}
 

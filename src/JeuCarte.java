@@ -1,10 +1,12 @@
 import java.util.Random;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 public class JeuCarte {
 
 	private static final int NB_CARTES = 52;
 	private static final Random rand = new Random();
-	int carteADistribuer;
+	private int carteADistribuer;
 	public Carte jeuCartes[];
 			
 	// Les cartes sont numérotées de 1 à 52 en mémoire, mais identifiées par la concaténation de son type et de son numero
@@ -13,18 +15,26 @@ public class JeuCarte {
     public JeuCarte(){
     	jeuCartes = new Carte[NB_CARTES+1];
     	this.carteADistribuer = 0;
-
-        int k=0;
+    	int k=0;
         for(int numTypeCarte=0; numTypeCarte<4;numTypeCarte++ ) {	//Boucle du type: coeur carreau, trèfle ou pique
-            for(int numCarte=0; numCarte<13; numCarte++){			//Boucle pour les cartes de l'as(1) au roi(13) 
-                if ((numCarte>1) && (numCarte<11)){					//Génération des cartes à nombres sauf as
-					jeuCartes[k] = new Carte(numCarte, numTypeCarte, numCarte);
-				}
-				else if (numCarte>10) {								//Génération des cartes figure et as
-					jeuCartes[k] = new Carte(numCarte, numTypeCarte, 10);
-				}
-            }
-        }
+            for(int numCarte=1; numCarte<14; numCarte++){			//Boucle pour les cartes de l'as(1) au roi(13) 
+                if ((numCarte>0) && (numCarte<11)){					//Génération des cartes à nombres sauf as
+                	jeuCartes[k] = new Carte(numCarte, numTypeCarte, numCarte);
+    				System.out.println("Carte numero : " + jeuCartes[k].numero);
+    				System.out.println("Carte type : " + jeuCartes[k].type);
+    			}
+    			else if (numCarte>10) {								//Génération des cartes figure et as
+ 					jeuCartes[k] = new Carte(numCarte, numTypeCarte, 10);
+   					System.out.println("CARTE numero : " + jeuCartes[k].numero);
+   					System.out.println("CARTE type : " + jeuCartes[k].type);
+   				}
+                k++;
+                System.out.println("-------");
+                System.out.println(k);
+           }
+       }
+       System.out.println(jeuCartes);
+
     }
 	
 	
@@ -42,6 +52,7 @@ public class JeuCarte {
 
 		if(carteADistribuer<jeuCartes.length){
 			Carte j = jeuCartes[carteADistribuer];
+			System.out.println("CarteADistribuer : " + carteADistribuer);
 			carteADistribuer++;
 	        return j;
 	        

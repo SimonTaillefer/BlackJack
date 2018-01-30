@@ -19,6 +19,9 @@ public class MainJoueur {
 	
 	public void ajouterCarte(Carte carte){
 		System.out.println("IIIIIIIIICCCCCCCCCCCCCCIIIIIIIIII :" +  carteList);
+		System.out.println("Carte tiree numero:" + carte.numero);
+		System.out.println("Carte tiree type:" + carte.type);
+		System.out.println("Carte tiree valeur:" + carte.valeur);
 		carteList.add(carte);
 	}
 	
