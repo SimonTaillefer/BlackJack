@@ -1,7 +1,7 @@
 
 public class Compte {
 
-	int somme; //de
+	int somme;
 
 	public Compte(int somme) {
 		super();

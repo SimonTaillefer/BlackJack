@@ -19,4 +19,8 @@ public class Mise {
 	public void setMise(int mise) {
 		this.mise = mise;
 	}
+
+	public void reinitialiserMise() {
+		this.mise = 0;
+	}
 }

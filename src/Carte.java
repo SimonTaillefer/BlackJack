@@ -48,23 +48,23 @@ public class Carte {
 		case 1:
 			return "L'as";
 		case 2:
-			return "Un deux";
+			return "Un 2";
 		case 3:
-			return "Un trois";
+			return "Un 3";
 		case 4:
-			return "Un quatre";
+			return "Un 4";
 		case 5:
-			return "Un cinq";
+			return "Un 5";
 		case 6:
-			return "Un six";
+			return "Un 6";
 		case 7:
-			return "Un sept";
+			return "Un 7";
 		case 8:
-			return "Un huit";
+			return "Un 8";
 		case 9:
-			return "Un neuf";
+			return "Un 9";
 		case 10:
-			return "Un dix";
+			return "Un 10";
 		case 11:
 			return "Un valet";
 		case 12:

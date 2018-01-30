@@ -31,4 +31,12 @@ public class MainJoueur {
 		}
 	}
 	
+	public void lireUneCarte(){
+		System.out.println(carteList.get(0).lireNumeroCarte() + " de " + carteList.get(0).lireTypeCarte() + ".");
+	}
+	
+	void reinitialiserCarte(){
+		carteList = new ArrayList<Carte>();
+	}
+	
 }

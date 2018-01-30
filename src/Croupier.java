@@ -6,25 +6,12 @@ public class Croupier extends Joueur {
 	ArrayList<Client> clients;
 	int scoreMaxClient;
 	Scanner sc;
-	boolean gagnantTrouve;
-	Client clientGagnant;
 
 	public Croupier(String nom) {
 		super(nom);
 		this.clients = new ArrayList<Client>();
 		this.sc = new Scanner(System.in);
 		this.scoreMaxClient = 0;
-		this.gagnantTrouve = false;
-	}
-	
-	
-	public int trouverIDJoueur(Client client[], String nomJoueur, int nbJoueurs){ //Cherche l'identifiant du joueur à partir de son nom
-		for (int i=0; i<nbJoueurs; i++){
-			if (client[i].nom == nomJoueur){
-				return i;
-			}
-		}
-		return -1;
 	}
 	
 	public void gererGagnant(){
@@ -35,14 +22,16 @@ public class Croupier extends Joueur {
 			if (pointsMaxClients < clients.get(i).mainJoueur.compterPoints()){
 				pointsMaxClients = clients.get(i).mainJoueur.compterPoints();
 			}
-			System.out.println("i = " + i);
-			System.out.println("Le " + clients.get(0).getNom() + " a " + clients.get(0).mainJoueur.compterPoints() + " points."); //Affiche les points de tous les joueurs
-			System.out.println("ICIIII");
+
 		}
 		pointsCroupier = this.mainJoueur.compterPoints();
 		System.out.println("pointsCroupier : " + pointsCroupier);
-		if (pointsMaxClients > pointsCroupier){
+		if ((pointsMaxClients > pointsCroupier) && (pointsMaxClients <21)){
 			System.out.println("Le joueur " + clients.get(joueurGagant).nom + " gagne et rafle la mise.");
+			clients.get(joueurGagant).compte.ajouterSomme((clients.get(joueurGagant).mise.getMise())*2);	//Donner argent au client
+		}
+		else if ((pointsMaxClients < pointsCroupier) && (pointsCroupier >21)) {
+			System.out.println("Le joueur " + clients.get(joueurGagant).nom + " gagne et rafle la mise car le croupier a dépassé 21.");
 			clients.get(joueurGagant).compte.ajouterSomme((clients.get(joueurGagant).mise.getMise())*2);	//Donner argent au client
 		}
 		else if (pointsMaxClients == pointsCroupier) {
@@ -50,13 +39,38 @@ public class Croupier extends Joueur {
 				System.out.println("Le joueur " + clients.get(joueurGagant).nom + " gagne et rafle la mise.");
 				clients.get(joueurGagant).compte.ajouterSomme((clients.get(joueurGagant).mise.getMise())*2);	//Donner argent au client
 			}
+			else if ((this.mainJoueur.compterNBCartes()) == (clients.get(joueurGagant).mainJoueur.compterNBCartes())) {
+				System.out.println("Le croupier et le joueur " + clients.get(joueurGagant).nom + " ont fait égalité.");
+				clients.get(joueurGagant).compte.ajouterSomme((clients.get(joueurGagant).mise.getMise()));	//Donner argent au client
+			}
 		}
 		else {
 			System.out.println("Vous avez perdu la mise");
 		}
-		System.out.println("LAAAAAA");
 		
 	}
+	
+	boolean IACroupier(){
+		if (this.mainJoueur.compterPoints() <17) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean finManche(){
+		if (this.mainJoueur.compterPoints() > 21){
+			return true;
+		}
+		else if (clients.get(0).mainJoueur.compterPoints() > 21) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	
 	
 	public boolean finPartie(){
@@ -69,8 +83,8 @@ public class Croupier extends Joueur {
 	
 	public void gererJeu(){
 		
-		boolean finManche = false;
 		
+		String rep;
 		
 		System.out.println("Bienvenue au BlackJacques");
 		
@@ -82,77 +96,86 @@ public class Croupier extends Joueur {
 		
 		while (finPartie() != true){
 			
+			System.out.println("######################     NOUVELLE MANCHE    ########################");
 			System.out.println(clients.get(0).getNom() + ", votre butin est de " + clients.get(0).compte.somme + "€");
+			
+			boolean finManche = false;
 			
 			JeuCarte jeuCarte = new JeuCarte();
 			jeuCarte.melanger();
 			
+			clients.get(0).gestionMise();
 			
+			//Tirage du croupier
 			this.mainJoueur.ajouterCarte(jeuCarte.distribuerUneCarte());
 			this.mainJoueur.ajouterCarte(jeuCarte.distribuerUneCarte());
-			System.out.println(this.nom + " a les cartes suivantes:");
-			this.mainJoueur.lireCartesEnMain();
+			System.out.println("Carte du " + this.nom);
+			this.mainJoueur.lireUneCarte();
 			
+			//Tirage du client
 			int i=0;
 			Carte carteTiree = jeuCarte.distribuerUneCarte();
 			clients.get(0).mainJoueur.ajouterCarte(carteTiree);
 			clients.get(0).mainJoueur.ajouterCarte(jeuCarte.distribuerUneCarte());
 			System.out.println(clients.get(0).nom + " a les cartes suivantes:");
 			clients.get(0).mainJoueur.lireCartesEnMain();
+			System.out.println("Ce qui fait un total de " + clients.get(0).mainJoueur.compterPoints() + " points.");
 			
-			clients.get(0).gestionMise();
 			
-
+			System.out.println("Voulez vous stand? (yes/no)");
+			rep = sc.nextLine();
+			if (rep.equals("yes") || rep.equals("y")){
+				finManche = true;
+			}
 			
 			i++;
 			
-			System.out.println("---------------------");
 			
 			while (finManche != true){
-				System.out.println("Cycle " + i++);
+				System.out.println("Tour de table n°" + i++);
 				
-				this.mainJoueur.ajouterCarte(jeuCarte.distribuerUneCarte());
-				System.out.println(this.nom + " a les cartes suivantes:");
-				this.mainJoueur.lireCartesEnMain();
+				if (IACroupier()){  //Gestion du croupier
+					this.mainJoueur.ajouterCarte(jeuCarte.distribuerUneCarte());
+					System.out.println(this.nom + " a la carte suivantes:");
+					this.mainJoueur.lireUneCarte();
+				}
+				
 				
 				for (Client c : clients) { //Distribution des cartes aux joueurs et prise des valeurs des mises
 					carteTiree = jeuCarte.distribuerUneCarte();
-					System.out.println("Carte tiree numero:" + carteTiree.numero); System.out.println("Carte tiree type:" + carteTiree.type); System.out.println("Carte tiree valeur:" + carteTiree.valeur);
 					c.mainJoueur.ajouterCarte(carteTiree);
 					System.out.println(c.nom + " a les cartes suivantes:");
 					c.mainJoueur.lireCartesEnMain();
-					c.gestionMise();
+					System.out.println("Ce qui fait un total de " + c.mainJoueur.compterPoints() + " points.");
+					finManche = finManche();
 				}
+				
+				
 
+				if (finManche != true){
+					System.out.println("Voulez vous stand? (yes/no)");
+					rep = sc.nextLine();
+					if (rep.equals("yes") || rep.equals("y")){
+						finManche = true;
+					}
+				}
 				
-				System.out.println("Voulez vous stand? (yes/no)");
-				String rep = sc.nextLine();
-				if (rep.equals("yes") || rep.equals("y")){
-					finManche=true;
+				if (finManche()){
+					finManche = true;
 				}
 				
 			}
 			
-			/*for (Client c : clients) {
-				int scoreTemp = c.mainJoueur.compterPoints();
-				if (scoreTemp > scoreMaxClient){
-					scoreMaxClient = scoreTemp;
-					clientGagnant = new Client(c.getNom(), c.getCompte().getSomme() );
-					clientGagnant = c;
-					gagnantTrouve = true;
-				}
-			}
-			
-			if (gagnantTrouve){
-				System.out.println("Le gagnant est " + clientGagnant.nom);
-				System.out.println(clientGagnant.getPoints());
-				System.out.println(this.mainJoueur.compterPoints());
-			}*/
 
 			gererGagnant();
+			
+			clients.get(0).mainJoueur.reinitialiserCarte();
+			clients.get(0).mise.reinitialiserMise();
+			this.mainJoueur.reinitialiserCarte();
+			
 		}
 		
-		
+		System.out.println("###############   PARTIE TERMINEE - VOUS AVEZ PERDU - MERCI POUR LA CAILLASSE ;) ####################");	
 		
 	}
 	

@@ -23,8 +23,6 @@ public class JeuCarte {
  					jeuCartes[k] = new Carte(numCarte, numTypeCarte, 10);
    				}
                 k++;
-                System.out.println("-------");
-                System.out.println(k);
            }
        }
 
