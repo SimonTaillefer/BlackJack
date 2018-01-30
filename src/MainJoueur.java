@@ -9,20 +9,26 @@ public class MainJoueur {
 		this.carteList = new ArrayList<Carte>();
 	}
 
-	public int compterPoints(ArrayList<Carte> cartesJ){
+	public int compterPoints(){
 		int score = 0;			
-		for (Carte carte : cartesJ) {
+		for (Carte carte : carteList) {
 			score = score + carte.getValeur();
 		}
 		return score;
 	}
 	
 	public void ajouterCarte(Carte carte){
-		System.out.println("IIIIIIIIICCCCCCCCCCCCCCIIIIIIIIII :" +  carteList);
-		System.out.println("Carte tiree numero:" + carte.numero);
-		System.out.println("Carte tiree type:" + carte.type);
-		System.out.println("Carte tiree valeur:" + carte.valeur);
 		carteList.add(carte);
+	}
+	
+	public int compterNBCartes(){
+		return carteList.size();
+	}
+	
+	public void lireCartesEnMain(){
+		for (Carte carteEnMain : carteList) {
+			System.out.println(carteEnMain.lireNumeroCarte() + " de " + carteEnMain.lireTypeCarte() + ".");
+		}
 	}
 	
 }

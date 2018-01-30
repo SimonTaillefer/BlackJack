@@ -1,3 +1,4 @@
+
 public class Joueur {
 	
 	String nom;
@@ -8,6 +9,7 @@ public class Joueur {
 		super();
 		this.nom = nom;
 		this.mainJoueur = new MainJoueur();
+		
 	}
 	
 	int hit(){
