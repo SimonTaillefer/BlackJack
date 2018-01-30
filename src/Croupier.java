@@ -169,9 +169,9 @@ public class Croupier extends Joueur {
 
 			gererGagnant();
 			
-			clients.get(0).mainJoueur.reinitialiserCarte();
+			clients.get(0).mainJoueur.reinitialiserListeCarte();
 			clients.get(0).mise.reinitialiserMise();
-			this.mainJoueur.reinitialiserCarte();
+			this.mainJoueur.reinitialiserListeCarte();
 			
 		}
 		

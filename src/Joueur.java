@@ -11,10 +11,6 @@ public class Joueur {
 		this.mainJoueur = new MainJoueur();
 		
 	}
-	
-	int hit(){
-		return 1;
-	}
 
 	public String getNom() {
 		return nom;
@@ -22,10 +18,6 @@ public class Joueur {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	int stand(){
-		return 2;
 	}
 
 }

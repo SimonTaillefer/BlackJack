@@ -52,13 +52,5 @@ public class JeuCarte {
 	    }
 	}
 	
-	int correspondCarte(String numCarte){ //Fait la correspondance entre le numéro concaténé et le numero memoire de la carte
-		if (numCarte.length()>2){
-			return Character.getNumericValue(numCarte.charAt(1)+numCarte.charAt(2)) + (Character.getNumericValue(numCarte.charAt(0))-1)*13;
-		}
-		else {
-			return Character.getNumericValue(numCarte.charAt(1)) + (Character.getNumericValue(numCarte.charAt(0))-1)*13;
-		}
-	}
 
 }

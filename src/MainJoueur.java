@@ -35,7 +35,7 @@ public class MainJoueur {
 		System.out.println(carteList.get(0).lireNumeroCarte() + " de " + carteList.get(0).lireTypeCarte() + ".");
 	}
 	
-	void reinitialiserCarte(){
+	void reinitialiserListeCarte(){
 		carteList = new ArrayList<Carte>();
 	}
 	
