@@ -1,4 +1,3 @@
-
 public class Carte {
 
 	public int numero;
@@ -37,9 +36,9 @@ public class Carte {
 		case 2:
 			return "pique";
 		case 3:
-			return "trèfle";
+			return "trï¿½fle";
 		default:
-			return "le joker de trèfle";
+			return "le joker de trï¿½fle";
 		}
 	}
 	
