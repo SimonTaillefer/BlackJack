@@ -1,20 +1,25 @@
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Croupier extends Joueur {
+public class CroupierImpl extends UnicastRemoteObject implements Croupier {
 
-	ArrayList<Client> clients;
-	int scoreMaxClient;
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Client> clients;
+	//private int scoreMaxClient;
+	private MainJoueur mainJoueur;
 	Scanner sc;
 
-	public Croupier(String nom) {
-		super(nom);
+	public CroupierImpl(String nom) throws RemoteException {
+		super();
 		this.clients = new ArrayList<Client>();
 		this.sc = new Scanner(System.in);
-		this.scoreMaxClient = 0;
+		//this.scoreMaxClient = 0;
+		this.mainJoueur = new MainJoueur();
 	}
 	
-	public void gererGagnant(){
+	public void gererGagnant() throws RemoteException {
 		int pointsMaxClients=0;
 		int pointsCroupier=0;
 		int joueurGagant=0;
@@ -31,7 +36,7 @@ public class Croupier extends Joueur {
 			clients.get(joueurGagant).compte.ajouterSomme((clients.get(joueurGagant).mise.getMise())*2);	//Donner argent au client
 		}
 		else if ((pointsMaxClients < pointsCroupier) && (pointsCroupier >21)) {
-			System.out.println("Le joueur " + clients.get(joueurGagant).nom + " gagne et rafle la mise car le croupier a dépassé 21.");
+			System.out.println("Le joueur " + clients.get(joueurGagant).nom + " gagne et rafle la mise car le croupier a dï¿½passï¿½ 21.");
 			clients.get(joueurGagant).compte.ajouterSomme((clients.get(joueurGagant).mise.getMise())*2);	//Donner argent au client
 		}
 		else if (pointsMaxClients == pointsCroupier) {
@@ -40,7 +45,7 @@ public class Croupier extends Joueur {
 				clients.get(joueurGagant).compte.ajouterSomme((clients.get(joueurGagant).mise.getMise())*2);	//Donner argent au client
 			}
 			else if ((this.mainJoueur.compterNBCartes()) == (clients.get(joueurGagant).mainJoueur.compterNBCartes())) {
-				System.out.println("Le croupier et le joueur " + clients.get(joueurGagant).nom + " ont fait égalité.");
+				System.out.println("Le croupier et le joueur " + clients.get(joueurGagant).nom + " ont fait ï¿½galitï¿½.");
 				clients.get(joueurGagant).compte.ajouterSomme((clients.get(joueurGagant).mise.getMise()));	//Donner argent au client
 			}
 		}
@@ -50,7 +55,7 @@ public class Croupier extends Joueur {
 		
 	}
 	
-	boolean IACroupier(){
+	public boolean IACroupier() throws RemoteException {
 		if (this.mainJoueur.compterPoints() <17) {
 			return true;
 		}
@@ -59,7 +64,7 @@ public class Croupier extends Joueur {
 		}
 	}
 	
-	public boolean finManche(){
+	public boolean finManche() throws RemoteException {
 		if (this.mainJoueur.compterPoints() > 21){
 			return true;
 		}
@@ -73,7 +78,7 @@ public class Croupier extends Joueur {
 	
 	
 	
-	public boolean finPartie(){
+	public boolean finPartie() throws RemoteException {
 		if (clients.get(0).compte.getSomme() == 0){
 			return true;
 		}
@@ -81,7 +86,7 @@ public class Croupier extends Joueur {
 	}
 	
 	
-	public void gererJeu(){
+	public void gererJeu() throws RemoteException {
 		
 		
 		String rep;
@@ -97,7 +102,7 @@ public class Croupier extends Joueur {
 		while (finPartie() != true){
 			
 			System.out.println("######################     NOUVELLE MANCHE    ########################");
-			System.out.println(clients.get(0).getNom() + ", votre butin est de " + clients.get(0).compte.somme + "€");
+			System.out.println(clients.get(0).getNom() + ", votre butin est de " + clients.get(0).compte.somme + "ï¿½");
 			
 			boolean finManche = false;
 			
@@ -109,7 +114,7 @@ public class Croupier extends Joueur {
 			//Tirage du croupier
 			this.mainJoueur.ajouterCarte(jeuCarte.distribuerUneCarte());
 			this.mainJoueur.ajouterCarte(jeuCarte.distribuerUneCarte());
-			System.out.println("Carte du " + this.nom);
+			System.out.println("Carte du Croupier"/* + this.nom*/);
 			this.mainJoueur.lireUneCarte();
 			
 			//Tirage du client
@@ -132,11 +137,11 @@ public class Croupier extends Joueur {
 			
 			
 			while (finManche != true){
-				System.out.println("Tour de table n°" + i++);
+				System.out.println("Tour de table nï¿½" + i++);
 				
 				if (IACroupier()){  //Gestion du croupier
 					this.mainJoueur.ajouterCarte(jeuCarte.distribuerUneCarte());
-					System.out.println(this.nom + " a la carte suivantes:");
+					System.out.println(/*this.nom + */"Croupier a la carte suivantes:");
 					this.mainJoueur.lireUneCarte();
 				}
 				

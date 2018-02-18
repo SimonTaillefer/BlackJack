@@ -7,19 +7,19 @@ public class JeuCarte {
 	private int carteADistribuer;
 	public Carte jeuCartes[];
 			
-	// Les cartes sont numérotées de 1 à 52 en mémoire, mais identifiées par la concaténation de son type et de son numero
+	// Les cartes sont numï¿½rotï¿½es de 1 ï¿½ 52 en mï¿½moire, mais identifiï¿½es par la concatï¿½nation de son type et de son numero
 	// Exemple: dame de coeur : type = 1 dame = 11 identifiant=111
 	
     public JeuCarte(){
     	jeuCartes = new Carte[NB_CARTES];
     	this.carteADistribuer = 0;
     	int k=0;
-        for(int numTypeCarte=0; numTypeCarte<4;numTypeCarte++ ) {	//Boucle du type: coeur carreau, trèfle ou pique
+        for(int numTypeCarte=0; numTypeCarte<4;numTypeCarte++ ) {	//Boucle du type: coeur carreau, trï¿½fle ou pique
             for(int numCarte=1; numCarte<14; numCarte++){			//Boucle pour les cartes de l'as(1) au roi(13) 
-                if ((numCarte>0) && (numCarte<11)){					//Génération des cartes à nombres sauf as
+                if ((numCarte>0) && (numCarte<11)){					//Gï¿½nï¿½ration des cartes ï¿½ nombres sauf as
                 	jeuCartes[k] = new Carte(numCarte, numTypeCarte, numCarte);
     			}
-    			else if (numCarte>10) {								//Génération des cartes figure et as
+    			else if (numCarte>10) {								//Gï¿½nï¿½ration des cartes figure et as
  					jeuCartes[k] = new Carte(numCarte, numTypeCarte, 10);
    				}
                 k++;

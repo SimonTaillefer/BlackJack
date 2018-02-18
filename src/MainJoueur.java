@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class MainJoueur {
 
-	ArrayList<Carte> carteList;
+	private ArrayList<Carte> carteList;
 	
 	public MainJoueur() {
 		super();
