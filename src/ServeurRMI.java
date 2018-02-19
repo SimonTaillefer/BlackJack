@@ -21,7 +21,6 @@ public class ServeurRMI {
 				System.setSecurityManager(new RMISecurityManager());
 				
 			croupier1 = new CroupierImpl("Croupier");
-			//croupier1.gererJeu();
 			String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + "/RMI";
 		    System.out.println("Enregistrement de l'objet avec l'url : " + url);
 		    Naming.rebind(url, croupier1);

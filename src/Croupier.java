@@ -12,5 +12,5 @@ public interface Croupier extends Remote {
 	
 	public boolean finPartie() throws RemoteException;
 	
-	public void gererJeu() throws RemoteException;
+	public String gererJeu() throws RemoteException;
 }

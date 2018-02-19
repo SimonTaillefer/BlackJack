@@ -3,7 +3,7 @@ public class Joueur {
 	
 	String nom;
 	
-	MainJoueur mainJoueur; //Contient les cartes que le joueur possède
+	MainJoueur mainJoueur; //Contient les cartes que le joueur possÃ¨de
 
 	public Joueur(String nom) {
 		super();

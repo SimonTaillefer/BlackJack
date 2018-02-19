@@ -15,10 +15,12 @@ public class ClientRMI {
 	      System.setSecurityManager(new RMISecurityManager());
 	    }
 	    try {
-	      Remote r = Naming.lookup("rmi://10.0.0.13/RMI");
+	      Remote r = Naming.lookup("rmi://127.0.1.1/RMI");
 	      System.out.println(r);
 	      if (r instanceof Croupier) {
-	        ((Croupier) r).gererJeu();
+	    	  System.out.println("HELLO");
+	        String s = ((Croupier) r).gererJeu();
+	        System.out.println(s);
 	      }
 	    } catch (MalformedURLException e) {
 	      e.printStackTrace();

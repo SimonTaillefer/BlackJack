@@ -25,8 +25,8 @@ public class Client extends Joueur {
 		
 		
 		miser(valMise);
-		System.out.println("Vous avez misé " + getMise().getMise() + "€.");
-		System.out.println("Vous avez " + getCompte().getSomme() + "€ sur votre compte.");
+		System.out.println("Vous avez misÃ© " + getMise().getMise() + "â‚¬.");
+		System.out.println("Vous avez " + getCompte().getSomme() + "â‚¬ sur votre compte.");
 	}
 	
 	public void miser(int somme){

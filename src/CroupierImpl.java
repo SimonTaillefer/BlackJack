@@ -86,8 +86,7 @@ public class CroupierImpl extends UnicastRemoteObject implements Croupier {
 	}
 	
 	
-	public void gererJeu() throws RemoteException {
-		
+	public String gererJeu() throws RemoteException {
 		
 		String rep;
 		
@@ -181,10 +180,6 @@ public class CroupierImpl extends UnicastRemoteObject implements Croupier {
 		}
 		
 		System.out.println("###############   PARTIE TERMINEE - VOUS AVEZ PERDU - MERCI POUR LA CAILLASSE ;) ####################");	
-		
+		return "OK";
 	}
-	
-
-	
-
 }
