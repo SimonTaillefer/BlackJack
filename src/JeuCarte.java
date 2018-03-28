@@ -1,15 +1,39 @@
 import java.util.Random;
 
+/**
+ * JeuCarte est la classe contenant les 54 cartes d'un jeu de cartes.
+ * 
+ * @author Alexis PION, Simon TAILLEFER, Bastien VOIRIN
+ *
+ */
 public class JeuCarte {
 
+	/**
+	 * Nombre de carte 
+	 */
 	private static final int NB_CARTES = 52;
+	
+	/**
+	 * Variable de hasard.
+	 */
 	private static final Random rand = new Random();
+	
+	/**
+	 * Nombre de cartes à distribuer.
+	 */
 	private int carteADistribuer;
+	
+	/**
+	 * Tableau de cartes.
+	 */
 	public Carte jeuCartes[];
 			
 	// Les cartes sont num�rot�es de 1 � 52 en m�moire, mais identifi�es par la concat�nation de son type et de son numero
 	// Exemple: dame de coeur : type = 1 dame = 11 identifiant=111
 	
+	/**
+	 * Constructeur JeuCarte.
+	 */
     public JeuCarte(){
     	jeuCartes = new Carte[NB_CARTES];
     	this.carteADistribuer = 0;
@@ -28,8 +52,9 @@ public class JeuCarte {
 
     }
 	
-	
-	
+	/**
+	 * Mélange le jeu de cartes.
+	 */
     public void melanger(){
         for(int i=0; i<(jeuCartes.length); i++){
             int random = rand.nextInt(NB_CARTES);
@@ -39,6 +64,11 @@ public class JeuCarte {
         }
     }
 
+    /**
+     * Distribue une carte 
+     * 
+     * @return La carte à distribuer.
+     */
 	public Carte distribuerUneCarte(){
 
 		if(carteADistribuer<jeuCartes.length){

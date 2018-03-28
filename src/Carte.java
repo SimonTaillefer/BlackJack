@@ -1,9 +1,36 @@
+/**
+ * Carte est la classe définissant les cartes du BlackJack.
+ * 
+ * @author Alexis PION, Simon TAILLEFER, Bastien VOIRIN
+ *
+ */
 public class Carte {
 
-	public int numero;
-	public int type;
-	int valeur;
+	/**
+	 * Le numéro de la carte.
+	 */
+	private int numero;
+	
+	/**
+	 * La forme de la carte (coeur, pique, carreau, trèfle).
+	 */
+	private int type;
+	
+	/**
+	 * La valeur de la carte dans le BlackJack.
+	 */
+	private int valeur;
 
+	/**
+	 * Constructeur Carte.
+	 * 
+	 * @param numero
+	 * 			Le numéro de la carte.
+	 * @param type
+	 * 			La forme de la carte.
+	 * @param valeur
+	 * 			La valeur de la carte.
+	 */
 	public Carte(int numero, int type, int valeur) {
 		super();
 		this.numero = numero;
@@ -11,22 +38,49 @@ public class Carte {
 		this.valeur = valeur;
 	}
 
+	/**
+	 * Retourne la valeur de la carte.
+	 * 
+	 * @return La valeur de la carte.
+	 */
 	public int getValeur() {
 		return valeur;
 	}
 
+	/**
+	 * Met à jour la valeur de la carte.
+	 * 
+	 * @param valeur
+	 * 			La nouvelle valeur de la carte.
+	 */
 	public void setValeur(int valeur) {
 		this.valeur = valeur;
 	}
 
+	/**
+	 * Retourne le numéro de la carte.
+	 * 
+	 * @return Le numéro de la carte.
+	 */
 	public int getNumero() {
 		return numero;
 	}
 
+	/**
+	 * Met à jour le numéro de la carte.
+	 * 
+	 * @param numero
+	 * 			Le nouveau numéro de la carte.
+	 */
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 	
+	/**
+	 * Retourne le type de la carte.
+	 * 
+	 * @return Le type de la carte.
+	 */
 	public String lireTypeCarte(){
 		switch (type) {
 		case 0:
@@ -42,6 +96,11 @@ public class Carte {
 		}
 	}
 	
+	/**
+	 * Retourne le numéro de la carte.
+	 * 
+	 * @return Le numéro de la carte.
+	 */
 	public String lireNumeroCarte(){
 		switch (numero) {
 		case 1:
